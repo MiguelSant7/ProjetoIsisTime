@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <script>
+        function verificarLogin(event) {
+            event.preventDefault();
+            
+            var usuario = document.getElementById("usuario");
+            var senha = document.getElementById("senha");
+
+            // Defina o usuário e senha corretos
+            var usuarioCorreto = "usuario";
+            var senhaCorreta = "senha123";
+
+            if (usuario.value === usuarioCorreto && senha.value === senhaCorreta) {
+                // Envia o formulário para o backend
+                document.getElementById("loginForm").submit();
+            } else {
+                // Se usuário ou senha estiver incorreto, aplicar a borda vermelha
+                usuario.classList.add("erro");
+                senha.classList.add("erro");
+                // Exibe mensagem de erro
+                alert('Usuário ou senha incorretos');
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        <form id="loginForm" method="POST" action="{% url 'login' %}" onsubmit="verificarLogin(event)">
+            {% csrf_token %}
+            <label for="usuario">Usuário</label><br>
+            <input type="text" id="usuario" name="usuario" required><br><br>
+
+            <label for="senha">Senha</label><br>
+            <input type="password" id="senha" name="senha" required><br><br>
+
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

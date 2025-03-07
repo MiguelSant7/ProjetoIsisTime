@@ -1,0 +1,120 @@
+/* Importando fonte moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #f8f8f8;
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #ff4da6;
+}
+
+.actions {
+    margin-bottom: 20px;
+}
+
+.btn-voltar button {
+    background: linear-gradient(90deg, #ff007f, #ff4da6);
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-voltar button:hover {
+    background: linear-gradient(90deg, #ff4da6, #ff007f);
+    transform: scale(1.05);
+}
+
+.btn-voltar button:active {
+    transform: scale(0.95);
+}
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: #1c1c1c;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background: #ff007f;
+}
+
+thead th {
+    padding: 15px;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background: #2a2a2a;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+}
+
+.btn-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-editar, .btn-apagar {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s;
+    display: inline-block;
+    margin-top: 1vw;
+}
+
+.btn-editar {
+    background: #ff4da6;
+    color: white;
+}
+
+.btn-editar:hover {
+    background: #ff007f;
+}
+
+.btn-apagar {
+    background: #d9534f;
+    color: white;
+}
+
+.btn-apagar:hover {
+    background: #c9302c;
+}
+
+@media (max-width: 600px) {
+    .btn-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .btn-editar, .btn-apagar {
+        width: 100%;
+        text-align: center;
+    }
+}

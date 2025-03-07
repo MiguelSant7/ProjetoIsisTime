@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <!-- Meta Tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v=1.3">
+
+    <title>IsisTime</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+               <img src="{% static 'imgs/Logo_IsisTime.png' %}?v=1.1" alt="Logo_IsisTime" width="50">
+            </a>
+        </div>
+    </nav>
+
+    <!-- Conteúdo Principal -->
+    <form id="formPonto">
+        {% csrf_token %}
+        <div class="container">
+            <div class="containerPonto">
+                <button type="button" class="registroPonto" onclick="baterPonto()">Bater Ponto</button>
+            </div>
+            <div class="containerHistorico">
+                <button type="button" class="historico" onclick="window.location.href='/historico/'">Histórico</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Rodapé -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/miguel-santos-17b931259/" target="_blank">
+                <img src="{% static 'imgs/linkedin.png' %}" alt="LinkedIn" width="30">
+            </a>
+            <a href="https://github.com/MiguelSant7" target="_blank">
+                <img src="{% static 'imgs/github.png' %}" alt="GitHub" width="30">
+            </a>
+        </div>
+    </footer>
+
+    <!-- Script JavaScript -->
+    <script>
+        function baterPonto() {
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            console.log("CSRF Token: ", csrftoken);
+
+            const dataHora = new Date().toISOString();
+            console.log("Data e Hora: ", dataHora);
+
+            fetch('/registrar_ponto/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({ dataHora: dataHora })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('✅ Ponto registrado com sucesso às ' + data.data_hora);
+                    location.reload();
+                } else {
+                    alert('❌ Erro ao registrar ponto.');
+                }
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                alert('❌ Erro ao registrar ponto.');
+            });
+        }
+    </script>
+</body>
+</html>
